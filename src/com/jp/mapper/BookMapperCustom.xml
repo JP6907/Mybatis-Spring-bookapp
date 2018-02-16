@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jp.mapper.BookMapperCustom" >
+  	<!-- 定义商品查询sql片段，即查询条件 -->
+    <sql id="query_book_where">
+        <if test="bookCustom!=null">
+            <if test="bookCustom.name!=null and bookCustom.name!=''">
+                book.name LIKE '%${bookCustom.name}%'
+            </if>
+        </if>
+    </sql>
+    
+
+    <select id="findBookList" parameterType="com.jp.po.BookQueryVo" 
+        resultType="com.jp.po.BookCustom">
+  		select * from book
+  		<where>
+  		    <include refid="query_book_where"></include>
+  		</where>
+  	</select>
+</mapper>
